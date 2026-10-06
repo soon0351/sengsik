@@ -10,6 +10,7 @@ import { SellerAdminModal } from './components/SellerAdminModal';
 import { AuthModal } from './components/AuthModal';
 import { Footer } from './components/Footer';
 import { Order, User, ProductOption, OrderStatus } from './types';
+import { apiFetchOrders, apiUpdateOrderStatus } from './lib/api';
 
 export default function App() {
   // App State
@@ -46,12 +47,9 @@ export default function App() {
   // Fetch orders from API
   const fetchOrders = async () => {
     try {
-      const res = await fetch('/api/orders');
-      if (res.ok) {
-        const data = await res.json();
-        if (data.success && Array.isArray(data.orders)) {
-          setOrders(data.orders);
-        }
+      const list = await apiFetchOrders();
+      if (Array.isArray(list)) {
+        setOrders(list);
       }
     } catch (err) {
       console.error('Failed to fetch orders:', err);
@@ -148,12 +146,7 @@ export default function App() {
   // Seller Admin: Update Status
   const handleUpdateOrderStatus = async (orderId: string, nextStatus: OrderStatus) => {
     try {
-      const res = await fetch(`/api/orders/${orderId}/status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: nextStatus }),
-      });
-      const data = await res.json();
+      const data = await apiUpdateOrderStatus(orderId, nextStatus);
       if (data.success) {
         showToast(`주문 상태가 '${nextStatus}'(으)로 변경되었습니다.`);
         fetchOrders();

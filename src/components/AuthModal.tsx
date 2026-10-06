@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User } from '../types';
+import { apiLogin, apiRegister, apiResetPassword } from '../lib/api';
 import {
   X,
   Lock,
@@ -45,26 +46,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
     setIsPasswordMismatchError(false);
 
     try {
-      const endpoint = isRegisterMode ? '/api/auth/register' : '/api/auth/login';
-      const payload = isRegisterMode
-        ? { email, password, name, phone, address }
-        : { email, password };
+      const data = isRegisterMode
+        ? await apiRegister({ email, password, name, phone, address })
+        : await apiLogin({ email, password });
 
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok || !data.success) {
-        if (data.notRegistered) {
+      if (!data || !data.success) {
+        if (data?.notRegistered) {
           setIsNotRegisteredError(true);
-        } else if (data.passwordMismatch) {
+        } else if (data?.passwordMismatch) {
           setIsPasswordMismatchError(true);
         }
-        throw new Error(data.error || '인증 처리에 실패했습니다.');
+        throw new Error(data?.error || '인증 처리에 실패했습니다.');
       }
 
       onAuthSuccess(data.user);
@@ -81,17 +73,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
     setLoading(true);
     setErrorMessage('');
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, autoRegisterIfNew: true }),
-      });
-      const data = await res.json();
-      if (data.success && data.user) {
+      const data = await apiLogin({ email, password, autoRegisterIfNew: true });
+      if (data && data.success && data.user) {
         onAuthSuccess(data.user);
         onClose();
       } else {
-        throw new Error(data.error || '가입 처리에 실패했습니다.');
+        throw new Error(data?.error || '가입 처리에 실패했습니다.');
       }
     } catch (err: any) {
       setErrorMessage(err.message || '가입 처리 중 오류가 발생했습니다.');
@@ -105,17 +92,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
     setLoading(true);
     setErrorMessage('');
     try {
-      const res = await fetch('/api/auth/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, newPassword: password }),
-      });
-      const data = await res.json();
-      if (data.success && data.user) {
+      const data = await apiResetPassword({ email, newPassword: password });
+      if (data && data.success && data.user) {
         onAuthSuccess(data.user);
         onClose();
       } else {
-        throw new Error(data.error || '비밀번호 재설정 실패');
+        throw new Error(data?.error || '비밀번호 재설정 실패');
       }
     } catch (err: any) {
       setErrorMessage(err.message || '비밀번호 변경 처리 실패');
@@ -129,13 +111,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
     setLoading(true);
     setErrorMessage('');
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'demo@haruchaeum.kr', password: 'password123' }),
-      });
-      const data = await res.json();
-      if (data.success) {
+      const data = await apiLogin({ email: 'demo@haruchaeum.kr', password: 'password123' });
+      if (data && data.success && data.user) {
         onAuthSuccess(data.user);
         onClose();
       } else {

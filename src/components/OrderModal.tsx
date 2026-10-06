@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ProductOption, User, Order } from '../types';
+import { apiCreateOrder } from '../lib/api';
 import { X, CreditCard, CheckCircle2, AlertTriangle, ArrowRight, ArrowLeft, ShieldCheck, Home } from 'lucide-react';
 
 interface OrderModalProps {
@@ -111,16 +112,10 @@ export const OrderModal: React.FC<OrderModalProps> = ({
         userEmail: currentUser?.email || '',
       };
 
-      const res = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderPayload),
-      });
+      const data = await apiCreateOrder(orderPayload);
 
-      const data = await res.json();
-
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || '주문 접수에 실패했습니다.');
+      if (!data.success || !data.order) {
+        throw new Error('주문 접수에 실패했습니다.');
       }
 
       setCompletedOrder(data.order);
