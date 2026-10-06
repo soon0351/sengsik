@@ -1,0 +1,74 @@
+[
+  {
+    "id": "ord-1791292249310-ps6jm",
+    "orderNumber": "ORD-20261006-9281",
+    "createdAt": "2026-10-06T13:10:49.310Z",
+    "status": "배송중",
+    "items": [
+      {
+        "id": "1",
+        "name": "하루채움 순수생식 50",
+        "packageOption": "1박스",
+        "count": 1,
+        "price": 48000
+      }
+    ],
+    "totalAmount": 48000,
+    "customerName": "박지민",
+    "phone": "010-5555-4444",
+    "address": "서울 강남구 역삼로 21",
+    "addressDetail": "101호",
+    "deliveryMemo": "배송 전 연락 바랍니다",
+    "paymentMethod": "신용카드 (모의 결제)",
+    "cardNumberMasked": "1111-2222-****-4444",
+    "userEmail": ""
+  },
+  {
+    "id": "ord-seed-1",
+    "orderNumber": "ORD-20261006-2184",
+    "createdAt": "2026-10-06T09:10:36.555Z",
+    "status": "배송중",
+    "items": [
+      {
+        "id": "saengsik-50-main",
+        "name": "하루채움 순수생식 50",
+        "packageOption": "30포 (1개월분 / 40g×30)",
+        "count": 1,
+        "price": 48000
+      }
+    ],
+    "totalAmount": 48000,
+    "customerName": "김민준",
+    "phone": "010-8921-3421",
+    "address": "서울특별시 종로구 삼청로 48",
+    "addressDetail": "202호",
+    "deliveryMemo": "부재 시 문 앞에 놓아주세요",
+    "paymentMethod": "신용카드 (모의 결제)",
+    "cardNumberMasked": "1111-2222-****-4444",
+    "userEmail": "minjun.kim@example.com"
+  },
+  {
+    "id": "ord-seed-2",
+    "orderNumber": "ORD-20261006-7912",
+    "createdAt": "2026-10-05T19:10:36.555Z",
+    "status": "배송완료",
+    "items": [
+      {
+        "id": "saengsik-50-main",
+        "name": "하루채움 순수생식 50",
+        "packageOption": "60포 (2개월 실속형 / 보틀 증정)",
+        "count": 1,
+        "price": 89000
+      }
+    ],
+    "totalAmount": 89000,
+    "customerName": "이서연",
+    "phone": "010-3419-5820",
+    "address": "경기도 성남시 분당구 판교역로 166",
+    "addressDetail": "7동 1403호",
+    "deliveryMemo": "배송 전 연락 바랍니다",
+    "paymentMethod": "신용카드 (모의 결제)",
+    "cardNumberMasked": "1111-2222-****-4444",
+    "userEmail": "seoyeon@example.com"
+  }
+]

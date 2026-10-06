@@ -1,0 +1,20 @@
+[
+  {
+    "id": "user-demo-1",
+    "email": "demo@haruchaeum.kr",
+    "password": "password123",
+    "name": "홍길동",
+    "phone": "010-1234-5678",
+    "address": "서울특별시 마포구 월드컵북로 12",
+    "createdAt": "2026-10-06T13:14:18.830Z"
+  },
+  {
+    "id": "user-stephanos",
+    "email": "stephanos0351@gmail.com",
+    "password": "mypassword",
+    "name": "스테파노",
+    "phone": "010-9876-5432",
+    "address": "서울특별시 강남구 테헤란로 152",
+    "createdAt": "2026-10-06T13:17:00.000Z"
+  }
+]
